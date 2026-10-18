@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Sweet Bunny Angel 🐰💖</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Fredoka:wght@400;500;600;700&family=Sacramento&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-cream: #fffdfa;
+            --pastel-pink: #fce7f3;
+            --rose-accent: #fb7185;
+            --soft-gold: #fde68a;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--bg-cream);
+            color: #4a384c;
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        .font-sacramento { font-family: 'Sacramento', cursive; }
+        .font-dancing { font-family: 'Dancing Script', cursive; }
+        .font-fredoka { font-family: 'Fredoka', cursive; }
+
+        /* Floating background elements */
+        .bg-sparkle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatUp 9s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) scale(0.5) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.8; }
+            80% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(25deg); opacity: 0; }
+        }
+
+        /* Glass & Cloud Cards */
+        .cloud-card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(16px);
+            border: 2px solid rgba(251, 207, 232, 0.7);
+            box-shadow: 0 20px 40px -15px rgba(244, 114, 182, 0.2), 0 0 20px rgba(253, 242, 248, 0.8) inset;
+            border-radius: 2rem;
+        }
+
+        /* Glowing Effects */
+        .glow-pink {
+            box-shadow: 0 0 25px rgba(251, 113, 133, 0.35);
+        }
+
+        /* Bunny Sway Animation */
+        @keyframes sway {
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
+        .animate-sway { animation: sway 3.5s ease-in-out infinite; }
+
+        /* Heart Trail Cursor Effect */
+        .cursor-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            animation: fadeOut 1s forwards ease-out;
+            font-size: 14px;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: scale(1) translateY(0); }
+            100% { opacity: 0; transform: scale(1.5) translateY(-20px); }
+        }
+
+        /* Wax Seal Stamp Hover */
+        .wax-seal {
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .wax-seal:hover {
+            transform: scale(1.05) rotate(4deg);
+        }
+    </style>
+</head>
+<body class="min-h-screen relative flex flex-col items-center justify-between">
+
+    <!-- Ambient Sparkles & Floating Hearts Container -->
+    <div id="ambient-container" class="fixed inset-0 pointer-events-none z-0"></div>
+
+    <!-- Main Content Envelope Wrapper -->
+    <div class="z-10 w-full max-w-3xl px-4 py-8 flex flex-col items-center space-y-8">
+
+        <!-- Header / Hero Banner -->
+        <header class="text-center space-y-3 relative mt-2">
+            <div class="inline-flex items-center space-x-2 bg-gradient-to-r from-pink-100 via-rose-100 to-pink-100 px-6 py-2 rounded-full border border-pink-200 text-rose-500 font-semibold text-sm shadow-sm animate-pulse">
+                <span>🐰✨ A Dreamy Universe For My Favorite Person ✨💖</span>
+            </div>
+            
+            <h1 class="font-sacramento text-6xl sm:text-7xl md:text-8xl text-rose-500 font-bold drop-shadow-sm tracking-wide">
+                For My Sweet Bunny Angel
+            </h1>
+
+            <p class="font-fredoka text-pink-400 text-sm sm:text-base max-w-md mx-auto font-medium">
+                You never have to fight your worries or carry heavy thoughts alone. I am holding your hand through it all.
+            </p>
+        </header>
+
+        <!-- Custom Romantic Music Player Card -->
+        <div class="cloud-card w-full p-5 sm:p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-4">
+                <div class="relative w-14 h-14 rounded-2xl bg-gradient-to-tr from-rose-300 to-pink-300 flex items-center justify-center text-white text-2xl shadow-inner glow-pink">
+                    <span>🎵</span>
+                    <div id="music-ring" class="absolute inset-0 rounded-2xl border-2 border-white/60 animate-ping opacity-0"></div>
+                </div>
+                <div>
+                    <h2 class="font-fredoka text-gray-700 text-base">Our Special Song</h2>
+                    <p id="music-subtext" class="text-xs text-pink-400 font-medium">Tap play to feel me right beside you 💕</p>
+                </div>
+            </div>
+
+            <audio id="bg-music" loop>
+                <source src="our-song.mp3" type="audio/mpeg">
+            </audio>
+
+            <button onclick="toggleMusic()" id="music-btn" class="w-full sm:w-auto bg-gradient-to-r from-rose-400 to-pink-400 hover:from-rose-500 hover:to-pink-500 text-white font-bold px-7 py-3 rounded-2xl shadow-md shadow-pink-200 transition transform active:scale-95 flex items-center justify-center space-x-2">
+                <span id="play-icon">▶</span>
+                <span id="play-text">Play Our Song</span>
+            </button>
+        </div>
+
+        <!-- Interactive Hug Bunny Section -->
+        <div class="cloud-card w-full p-6 sm:p-8 text-center space-y-5 relative overflow-hidden">
+            <!-- Plush Bunny Visual -->
+            <div class="relative w-28 h-28 mx-auto animate-sway">
+                <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
+                    <!-- Fluffy Ears -->
+                    <ellipse cx="38" cy="22" rx="8" ry="20" fill="#fbcfe8" transform="rotate(-10 38 22)"/>
+                    <ellipse cx="38" cy="22" rx="4" ry="14" fill="#f472b6" transform="rotate(-10 38 22)"/>
+                    <ellipse cx="62" cy="22" rx="8" ry="20" fill="#fbcfe8" transform="rotate(10 62 22)"/>
+                    <ellipse cx="62" cy="22" rx="4" ry="14" fill="#f472b6" transform="rotate(10 62 22)"/>
+                    <!-- Round Body & Head -->
+                    <circle cx="50" cy="62" r="28" fill="#fff" stroke="#fbcfe8" stroke-width="2"/>
+                    <circle cx="50" cy="45" r="22" fill="#fff" stroke="#fbcfe8" stroke-width="2"/>
+                    <!-- Rosy Cheeks -->
+                    <circle cx="38" cy="48" r="4" fill="#f472b6" opacity="0.6"/>
+                    <circle cx="62" cy="48" r="4" fill="#f472b6" opacity="0.6"/>
+                    <!-- Eyes & Smile -->
+                    <circle cx="42" cy="42" r="2.5" fill="#374151"/>
+                    <circle cx="58" cy="42" r="2.5" fill="#374151"/>
+                    <path d="M47 48 Q50 51 53 48" fill="none" stroke="#fb7185" stroke-width="2" stroke-linecap="round"/>
+                    <!-- Holding Pink Heart -->
+                    <path d="M50 58 C45 50 35 55 50 68 C65 55 55 50 50 58 Z" fill="#fb7185"/>
+                </svg>
+            </div>
+
+            <div>
+                <h2 class="font-fredoka text-2xl text-rose-500">Need a warm hug right now?</h2>
+                <p class="text-xs sm:text-sm text-pink-400 mt-1 max-w-sm mx-auto">Whenever your heart feels tired or loud, let me wrap you up tight.</p>
+            </div>
+
+            <button onclick="triggerHug()" class="bg-gradient-to-r from-rose-400 via-pink-400 to-rose-400 hover:from-rose-500 hover:to-pink-500 text-white font-bold px-8 py-3.5 rounded-2xl shadow-lg shadow-rose-200 transition transform active:scale-95 text-base glow-pink">
+                Press for a Warm Hug 🫂
+            </button>
+
+            <!-- Hug Popup Cloud -->
+            <div id="hug-cloud" class="hidden mt-4 p-5 bg-gradient-to-r from-pink-100/90 to-rose-100/90 rounded-2xl border border-rose-200 text-gray-700 text-sm sm:text-base leading-relaxed shadow-sm transition-all duration-500">
+                <p class="font-bold text-rose-600 mb-1">✨ *Arms wrapping tightly around you* ✨</p>
+                <p>I am right here with you, my sweet girl. Take a slow, gentle breath. You are so safe with me, so deeply cherished, and I am never leaving your side. ❤️</p>
+            </div>
+        </div>
+
+        <!-- Origami "Open When..." Love Letter Envelopes -->
+        <div class="w-full space-y-4">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl">💌</span>
+                <h3 class="font-fredoka text-xl text-rose-500">Open When You Need Comfort:</h3>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Envelope 1 -->
+                <div onclick="openLetter(1)" class="wax-seal cloud-card p-5 cursor-pointer flex flex-col justify-between space-y-3 relative group">
+                    <div class="flex items-center justify-between">
+                        <span class="text-3xl">✉️</span>
+                        <div class="w-7 h-7 rounded-full bg-rose-400 text-white flex items-center justify-center font-bold text-xs shadow-md">
+                            ❤️
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-700 text-sm">When you feel 'too much'</h4>
+                        <p class="text-xs text-pink-400 mt-1">Tap to open love note...</p>
+                    </div>
+                </div>
+
+                <!-- Envelope 2 -->
+                <div onclick="openLetter(2)" class="wax-seal cloud-card p-5 cursor-pointer flex flex-col justify-between space-y-3 relative group">
+                    <div class="flex items-center justify-between">
+                        <span class="text-3xl">💌</span>
+                        <div class="w-7 h-7 rounded-full bg-pink-400 text-white flex items-center justify-center font-bold text-xs shadow-md">
+                            🎀
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-700 text-sm">When fear tells you to run</h4>
+                        <p class="text-xs text-pink-400 mt-1">Tap to open love note...</p>
+                    </div>
+                </div>
+
+                <!-- Envelope 3 -->
+                <div onclick="openLetter(3)" class="wax-seal cloud-card p-5 cursor-pointer flex flex-col justify-between space-y-3 relative group">
+                    <div class="flex items-center justify-between">
+                        <span class="text-3xl">🎁</span>
+                        <div class="w-7 h-7 rounded-full bg-rose-400 text-white flex items-center justify-center font-bold text-xs shadow-md">
+                            ✨
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-gray-700 text-sm">My permanent promise</h4>
+                        <p class="text-xs text-pink-400 mt-1">Tap to open love note...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Interactive Bunny Meadow Section -->
+    <div class="z-10 w-full mt-6 bg-gradient-to-b from-transparent via-pink-50/60 to-emerald-100/50 pt-8 pb-4 border-t border-pink-200/60 flex flex-col items-center">
+        <div class="text-center mb-3 px-4">
+            <h3 class="font-fredoka text-2xl text-emerald-600 flex items-center justify-center gap-2">
+                <span>🥕</span> My Sweet Bunny Meadow <span>🌸</span>
+            </h3>
+            <p class="text-xs sm:text-sm text-emerald-700 font-medium">
+                Click on any bunny to pet them, or tap "Feed Carrot" to drop delicious treats!
+            </p>
+        </div>
+
+        <!-- Controls for Meadow -->
+        <div class="flex items-center gap-3 mb-3">
+            <button onclick="feedCarrot()" class="bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white font-bold px-5 py-2 rounded-xl text-xs shadow-sm active:scale-95 transition flex items-center gap-1.5">
+                <span>🥕</span> Feed Carrot
+            </button>
+            <div class="bg-white/80 backdrop-blur-sm px-4 py-1.5 rounded-xl border border-emerald-200 text-xs font-semibold text-emerald-800 shadow-sm">
+                🐾 Bunnies Pet: <span id="pet-counter" class="text-rose-500 font-bold">0</span>
+            </div>
+        </div>
+
+        <!-- Meadow Canvas -->
+        <div class="w-full max-w-3xl px-2 relative">
+            <canvas id="meadowCanvas" class="w-full h-72 sm:h-80 rounded-3xl shadow-lg border-2 border-emerald-200 cursor-pointer bg-emerald-50"></canvas>
+        </div>
+
+        <p class="font-dancing text-xl text-rose-500 mt-4 font-bold">I choose you today, tomorrow, and forever. ❤️</p>
+    </div>
+
+    <!-- Love Letter Modal -->
+    <div id="letter-modal" class="fixed inset-0 bg-pink-950/30 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="cloud-card max-w-lg w-full p-6 sm:p-8 space-y-4 relative bg-white shadow-2xl rounded-3xl border-2 border-pink-200">
+            <button onclick="closeLetter()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-pink-100 hover:bg-pink-200 text-rose-500 font-bold flex items-center justify-center transition">
+                ✕
+            </button>
+            <div class="flex items-center space-x-3">
+                <span id="modal-icon" class="text-3xl">💌</span>
+                <h3 id="modal-title" class="font-fredoka text-xl text-rose-500"></h3>
+            </div>
+            <hr class="border-pink-100">
+            <p id="modal-body" class="font-sacramento text-2xl sm:text-3xl text-gray-700 leading-snug whitespace-pre-line"></p>
+            <div class="pt-2 flex justify-end">
+                <button onclick="closeLetter()" class="bg-rose-400 hover:bg-rose-500 text-white font-bold px-6 py-2 rounded-xl text-sm transition shadow-md">
+                    Keep In My Heart ❤️
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio & Interaction Logic -->
+    <script>
+        // ----------------------------------------------------
+        // 1. WEB AUDIO API SYNTH SOUNDS (Chimes/Pings)
+        // ----------------------------------------------------
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function playChime(freq = 523.25, type = 'sine') {
+            try {
+                if (!audioCtx) audioCtx = new AudioCtx();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.8);
+            } catch (e) {
+                // Audio Context fallback
+            }
+        }
+
+        // ----------------------------------------------------
+        // 2. CURSOR HEART TRAIL & BACKGROUND SPARKLES
+        // ----------------------------------------------------
+        document.addEventListener('mousemove', (e) => {
+            if (Math.random() < 0.15) {
+                const heart = document.createElement('div');
+                heart.className = 'cursor-heart';
+                heart.innerHTML = ['💖', '✨', '🌸', '💕'][Math.floor(Math.random() * 4)];
+                heart.style.left = e.clientX + 'px';
+                heart.style.top = e.clientY + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 1000);
+            }
+        });
+
+        function spawnAmbientSparkle() {
+            const container = document.getElementById('ambient-container');
+            const el = document.createElement('div');
+            el.className = 'bg-sparkle';
+            el.innerHTML = ['💖', '✨', '🌸', '🤍', '💕'][Math.floor(Math.random() * 5)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (Math.random() * 14 + 12) + 'px';
+            el.style.animationDuration = (Math.random() * 4 + 6) + 's';
+            container.appendChild(el);
+            setTimeout(() => el.remove(), 9000);
+        }
+        setInterval(spawnAmbientSparkle, 500);
+
+        // ----------------------------------------------------
+        // 3. MUSIC PLAYER LOGIC
+        // ----------------------------------------------------
+        let isPlaying = false;
+        function toggleMusic() {
+            const music = document.getElementById('bg-music');
+            const playIcon = document.getElementById('play-icon');
+            const playText = document.getElementById('play-text');
+            const ring = document.getElementById('music-ring');
+
+            if (!isPlaying) {
+                music.play().then(() => {
+                    isPlaying = true;
+                    playIcon.innerText = "⏸";
+                    playText.innerText = "Pause Song";
+                    ring.classList.remove('opacity-0');
+                    playChime(659.25);
+                }).catch(() => {
+                    alert("Tip: Place an audio file named 'our-song.mp3' in the same directory to play your favorite song!");
+                });
+            } else {
+                music.pause();
+                isPlaying = false;
+                playIcon.innerText = "▶";
+                playText.innerText = "Play Our Song";
+                ring.classList.add('opacity-0');
+            }
+        }
+
+        // ----------------------------------------------------
+        // 4. VIRTUAL HUG TRIGGER
+        // ----------------------------------------------------
+        function triggerHug() {
+            const cloud = document.getElementById('hug-cloud');
+            cloud.classList.remove('hidden');
+            playChime(523.25);
+            setTimeout(() => playChime(659.25), 150);
+            setTimeout(() => playChime(783.99), 300);
+
+            for (let i = 0; i < 10; i++) {
+                setTimeout(spawnAmbientSparkle, i * 60);
+            }
+        }
+
+        // ----------------------------------------------------
+        // 5. LOVE LETTERS VAULT
+        // ----------------------------------------------------
+        const letters = {
+            1: {
+                title: "When you feel 'too much'",
+                icon: "✉️",
+                body: "My sweet girl,\n\nYou are never too much, and you are never a burden to me. Loving you is the easiest, most natural thing I have ever done. I don't want an easy love with anyone else—I want the real, beautiful, whole truth of you."
+            },
+            2: {
+                title: "When fear tells you to run",
+                icon: "💌",
+                body: "I see right through the walls you put up, my love.\n\nI know you're terrified of getting hurt again, but I am looking right past those fears, and I see you—my sweet girl who just wants to feel safe. I am staying right here with you."
+            },
+            3: {
+                title: "My permanent promise",
+                icon: "🎁",
+                body: "I choose you today, tomorrow, and every single day after that for the rest of my life.\n\nYou are my home, my peace, and my whole heart. Never forget how genuinely you are loved."
+            }
+        };
+
+        function openLetter(id) {
+            playChime(587.33);
+            document.getElementById('modal-title').innerText = letters[id].title;
+            document.getElementById('modal-icon').innerText = letters[id].icon;
+            document.getElementById('modal-body').innerText = letters[id].body;
+            document.getElementById('letter-modal').classList.remove('hidden');
+        }
+
+        function closeLetter() {
+            document.getElementById('letter-modal').classList.add('hidden');
+        }
+
+        // ----------------------------------------------------
+        // 6. INTERACTIVE BUNNY MEADOW (CANVAS)
+        // ----------------------------------------------------
+        const canvas = document.getElementById('meadowCanvas');
+        const ctx = canvas.getContext('2d');
+        let petCounter = 0;
+        let floatingPopups = [];
+        let droppedCarrots = [];
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight || 320;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class MeadowBunny {
+            constructor(x, y, isWhite, scale = 1) {
+                this.x = x;
+                this.y = y;
+                this.isWhite = isWhite; // White or Brown
+                this.scale = scale;
+                this.hopY = 0;
+                this.hopSpeed = 0;
+                this.earAngle = 0;
+                this.timer = Math.random() * 100;
+                this.targetX = x;
+            }
+
+            update() {
+                this.timer += 0.05;
+                this.earAngle = Math.sin(this.timer) * 0.12;
+
+                // Walk towards carrots if dropped
+                if (droppedCarrots.length > 0) {
+                    let nearest = droppedCarrots[0];
+                    if (Math.abs(nearest.x - this.x) > 15) {
+                        this.x += nearest.x > this.x ? 0.8 : -0.8;
+                        if (Math.random() < 0.03 && this.hopY === 0) this.hopSpeed = -3;
+                    } else {
+                        // Eat carrot
+                        droppedCarrots.shift();
+                        this.hopSpeed = -5;
+                        spawnPopup(this.x, this.y - 20, "Nom nom! 🥕❤️");
+                    }
+                }
+
+                // Random small hops
+                if (Math.random() < 0.006 && this.hopY === 0) {
+                    this.hopSpeed = -3.5;
+                }
+
+                // Physics
+                if (this.hopY < 0 || this.hopSpeed !== 0) {
+                    this.hopY += this.hopSpeed;
+                    this.hopSpeed += 0.3;
+                    if (this.hopY >= 0) {
+                        this.hopY = 0;
+                        this.hopSpeed = 0;
+                    }
+                }
+            }
+
+            pet() {
+                this.hopSpeed = -7.5;
+                petCounter++;
+                document.getElementById('pet-counter').innerText = petCounter;
+                playChime(659.25 + (petCounter % 3) * 100);
+
+                const messages = ["Purrrr 🐰", "Loved! 💖", "Warm snuggles!", "Squeak! ✨", "My hero! 💖"];
+                spawnPopup(this.x, this.y - 25, messages[Math.floor(Math.random() * messages.length)]);
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y + this.hopY);
+                ctx.scale(this.scale, this.scale);
+
+                // Shadow
+                ctx.beginPath();
+                ctx.ellipse(0, 16, 20, 6, 0, 0, Math.PI * 2);
+                ctx.fillStyle = "rgba(16, 185, 129, 0.22)";
+                ctx.fill();
+
+                const bodyColor = this.isWhite ? "#ffffff" : "#d97706";
+                const spotColor = this.isWhite ? "#fce7f3" : "#fef3c7";
+
+                // Ears
+                ctx.save();
+                ctx.translate(-7, -16);
+                ctx.rotate(-0.15 + this.earAngle);
+                ctx.beginPath();
+                ctx.ellipse(0, -11, 4.5, 13, 0, 0, Math.PI * 2);
+                ctx.fillStyle = bodyColor;
+                ctx.fill();
+                ctx.beginPath();
+                ctx.ellipse(0, -11, 2.5, 9, 0, 0, Math.PI * 2);
+                ctx.fillStyle = "#f472b6";
+                ctx.fill();
+                ctx.restore();
+
+                ctx.save();
+                ctx.translate(7, -16);
+                ctx.rotate(0.15 - this.earAngle);
+                ctx.beginPath();
+                ctx.ellipse(0, -11, 4.5, 13, 0, 0, Math.PI * 2);
+                ctx.fillStyle = bodyColor;
+                ctx.fill();
+                ctx.beginPath();
+                ctx.ellipse(0, -11, 2.5, 9, 0, 0, Math.PI * 2);
+                ctx.fillStyle = "#f472b6";
+                ctx.fill();
+                ctx.restore();
+
+                // Round Body
+                ctx.beginPath();
+                ctx.arc(0, 0, 20, 0, Math.PI * 2);
+                ctx.fillStyle = bodyColor;
+                ctx.fill();
+
+                // Tummy
+                ctx.beginPath();
+                ctx.arc(0, 3, 12, 0, Math.PI * 2);
+                ctx.fillStyle = spotColor;
+                ctx.fill();
+
+                // Eyes
+                ctx.fillStyle = "#27272a";
+                ctx.beginPath();
+                ctx.arc(-6, -4, 2.2, 0, Math.PI * 2);
+                ctx.arc(6, -4, 2.2, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Cheeks
+                ctx.fillStyle = "rgba(244, 114, 182, 0.55)";
+                ctx.beginPath();
+                ctx.arc(-10, 1, 3, 0, Math.PI * 2);
+                ctx.arc(10, 1, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Nose
+                ctx.fillStyle = "#fb7185";
+                ctx.beginPath();
+                ctx.arc(0, 0, 1.5, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.restore();
+            }
+
+            contains(px, py) {
+                const dx = px - this.x;
+                const dy = py - (this.y + this.hopY);
+                return Math.sqrt(dx * dx + dy * dy) < 28 * this.scale;
+            }
+        }
+
+        let meadowBunnies = [];
+        function initMeadow() {
+            meadowBunnies = [
+                new MeadowBunny(canvas.width * 0.22, canvas.height * 0.7, false, 1.1),
+                new MeadowBunny(canvas.width * 0.5, canvas.height * 0.74, true, 1.25),
+                new MeadowBunny(canvas.width * 0.78, canvas.height * 0.68, false, 1.05)
+            ];
+        }
+        initMeadow();
+
+        function spawnPopup(x, y, text) {
+            floatingPopups.push({ x, y, text, opacity: 1 });
+        }
+
+        function feedCarrot() {
+            const carrotX = canvas.width * 0.3 + Math.random() * (canvas.width * 0.4);
+            const carrotY = canvas.height * 0.75;
+            droppedCarrots.push({ x: carrotX, y: carrotY });
+            playChime(440);
+        }
+
+        function drawMeadowEnv() {
+            // Soft Grass
+            const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            grad.addColorStop(0, "#dcfce7");
+            grad.addColorStop(1, "#a7f3d0");
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Daisies
+            drawDaisy(canvas.width * 0.12, canvas.height * 0.4);
+            drawDaisy(canvas.width * 0.38, canvas.height * 0.32);
+            drawDaisy(canvas.width * 0.68, canvas.height * 0.38);
+            drawDaisy(canvas.width * 0.88, canvas.height * 0.48);
+
+            // Dropped Carrots
+            droppedCarrots.forEach(c => {
+                ctx.font = "20px sans-serif";
+                ctx.fillText("🥕", c.x - 10, c.y);
+            });
+        }
+
+        function drawDaisy(x, y) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.fillStyle = "#ffffff";
+            for (let i = 0; i < 5; i++) {
+                ctx.rotate((Math.PI * 2) / 5);
+                ctx.beginPath();
+                ctx.arc(0, 4, 3.5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.fillStyle = "#fde047";
+            ctx.beginPath();
+            ctx.arc(0, 0, 3, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function animateMeadow() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawMeadowEnv();
+
+            meadowBunnies.forEach(b => {
+                b.update();
+                b.draw();
+            });
+
+            // Popups
+            for (let i = floatingPopups.length - 1; i >= 0; i--) {
+                let p = floatingPopups[i];
+                p.y -= 0.8;
+                p.opacity -= 0.018;
+
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, p.opacity);
+                ctx.font = "bold 13px Quicksand, sans-serif";
+                ctx.fillStyle = "#fb7185";
+                ctx.fillText(p.text, p.x - 20, p.y);
+                ctx.restore();
+
+                if (p.opacity <= 0) floatingPopups.splice(i, 1);
+            }
+
+            requestAnimationFrame(animateMeadow);
+        }
+        animateMeadow();
+
+        // Canvas Pet Handler
+        function handleMeadowClick(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clickX = (e.clientX || (e.touches && e.touches[0].clientX)) - rect.left;
+            const clickY = (e.clientY || (e.touches && e.touches[0].clientY)) - rect.top;
+
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+
+            const finalX = clickX * scaleX;
+            const finalY = clickY * scaleY;
+
+            meadowBunnies.forEach(b => {
+                if (b.contains(finalX, finalY)) {
+                    b.pet();
+                }
+            });
+        }
+
+        canvas.addEventListener('click', handleMeadowClick);
+        canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            handleMeadowClick(e);
+        }, { passive: false });
+
+    </script>
+</body>
+</html>
